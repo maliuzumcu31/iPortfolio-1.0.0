@@ -1,6 +1,7 @@
-Thanks for downloading this template!
-
-Template Name: iPortfolio
-Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
-Author: BootstrapMade.com
-License: https://bootstrapmade.com/license/
+  <!-- =======================================================
+  * Template Name: Mehmet Ali Üzümcü
+  * Template URL: http://mehmetuzumcu.com.tr
+  * Updated: 26:06.2025
+  * Author: Mehmet Ali Üzümcü
+  * License:
+  ======================================================== -->
