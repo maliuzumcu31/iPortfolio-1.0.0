@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Marka Adı | Sipariş üzerine basılan giyim</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDEDED; --paper2:#DCDCDC; --ink:#0A0A0A; --mute:#595959; --cobalt:#0F0F0F; --sun:#8DB3D6; --red:#3A3A3A; --white:#FFFFFF;
+  --display:"Bricolage Grotesque","Arial Narrow",Arial,sans-serif; --body:"Instrument Sans",system-ui,Arial,sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); color-scheme:light;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.55 var(--body);overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit}
+:focus-visible{outline:3px solid #8A8A8A;outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+
+/* Topbar & Header */
+.topbar{position:relative;background:var(--ink);color:var(--paper);overflow:hidden;white-space:nowrap;font:500 13px var(--body);letter-spacing:.04em;padding:10px 0}
+.topbar::before,.topbar::after{content:"";position:absolute;top:0;bottom:0;width:90px;z-index:2;pointer-events:none}
+.topbar::before{left:0;background:linear-gradient(90deg,var(--ink),transparent)}
+.topbar::after{right:0;background:linear-gradient(270deg,var(--ink),transparent)}
+.tk{display:inline-block;animation:tick 40s linear infinite}
+.tk span{margin:0 30px}
+.tk i{font-style:normal;color:var(--sun);font-size:9px;vertical-align:middle}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+.hero{background:var(--cobalt);color:var(--white);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;mix-blend-mode:soft-light;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
+.logo{font:800 24px/1 var(--display);text-decoration:none;letter-spacing:-.03em}
+nav{display:flex;gap:26px;font-weight:500;font-size:15px}
+nav a{text-decoration:none;opacity:.9}nav a:hover{opacity:1;text-decoration:underline;text-underline-offset:5px}
+.cart{background:var(--sun);color:var(--ink);padding:9px 18px;font-weight:600;font-size:15px;text-decoration:none;border-radius:99px}
+.heroin{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:center;padding:36px 0 88px}
+.hero p{font-size:20px;max-width:40ch;margin:0 0 34px;opacity:.92}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:17px 34px;font:600 17px var(--body);text-decoration:none;border-radius:99px;transition:transform .15s, background .2s, color .2s;letter-spacing:.01em}
+.btn.sun{background:var(--sun);color:var(--ink);position:relative;overflow:hidden}
+.btn.sun::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.5) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.btn.sun:hover::after{transform:translateX(120%)}
+.btn.line{border:2px solid var(--white)}
+.btn:hover{transform:translateY(-3px)}
+
+.stage{position:relative;aspect-ratio:1;max-width:560px;width:100%;justify-self:center}
+.stage .bg{position:absolute;inset:6%;background:var(--red);border-radius:50%}
+.stage svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.tee{fill:inherit;stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round}
+.l1,.l2,.l3{animation:reg 1.4s cubic-bezier(.2,.8,.2,1) both}
+.l1{--x:-16px;--y:-12px}.l2{--x:14px;--y:10px;animation-delay:.15s}.l3{--x:-8px;--y:14px;animation-delay:.3s}
+@keyframes reg{from{transform:translate(var(--x),var(--y));opacity:.55}to{transform:none;opacity:1}}
+.badge{position:absolute;right:2%;top:6%;width:104px;height:104px;border-radius:50%;background:var(--sun);color:var(--ink);display:grid;place-items:center;text-align:center;font:800 15px/1.1 var(--display);transform:rotate(12deg);box-shadow:0 0 0 4px var(--ink)}
+.wave{display:block;width:100%;height:56px;position:absolute;bottom:-1px;left:0}
+
+/* Band */
+.band{background:var(--sun);color:var(--ink);padding:18px 0;overflow:hidden;white-space:nowrap}
+.band div{display:inline-block;font:800 clamp(22px,3.4vw,40px)/1 var(--display);letter-spacing:-.02em}
+.band span{margin:0 28px}
+@media (prefers-reduced-motion:no-preference){.band div{animation:slide 28s linear infinite}}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* Sections & Cards */
+section{padding:84px 0}
+h2{font:800 clamp(36px,6vw,76px)/.95 var(--display);letter-spacing:-.045em;margin:0 0 14px}
+.lead{color:var(--mute);max-width:52ch;font-size:18px;margin:0 0 44px}
+.cols{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.card{position:relative;transition:transform .55s cubic-bezier(.2,.8,.2,1)}
+.card:hover{transform:translateY(-8px)}
+.thumb{background:var(--c,var(--paper2));border-radius:22px;aspect-ratio:4/5;display:grid;place-items:center;position:relative;transition:background .35s,box-shadow .5s;box-shadow:inset 0 0 0 1px rgba(17,19,21,.08);cursor:zoom-in}
+.card:hover .thumb{box-shadow:0 28px 44px -24px rgba(17,19,21,.5),inset 0 0 0 1px rgba(17,19,21,.08)}
+.thumb svg{width:74%;height:auto;transition:transform .3s}
+.thumb .tee{stroke-width:3}
+.thumb use,.pr{transition:fill .35s}
+.thumb::before{content:"";position:absolute;inset:0;background:radial-gradient(70% 60% at 50% 36%,rgba(255,255,255,.5),transparent 72%);pointer-events:none}
+.view{position:absolute;inset:0;display:grid;place-items:center;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.card:hover .view{transform:scale(1.07)}
+.view.front::after{content:"";position:absolute;left:26%;right:26%;bottom:11%;height:4.5%;background:radial-gradient(closest-side,rgba(0,0,0,.3),transparent);filter:blur(3px)}
+.view.front:has(img)::after{display:none}
+.view img.ph{width:100%;height:100%;object-fit:cover}
+.ph2{opacity:0;transition:opacity .5s}
+.card:hover .ph2{opacity:1}
+
+.flip{position:absolute;right:12px;bottom:12px;z-index:2;background:var(--ink);color:var(--paper);border:0;border-radius:99px;font:600 13px var(--body);padding:6px 14px;cursor:pointer}
+.flip:hover{background:var(--sun);color:var(--ink)}
+.tag{position:absolute;z-index:3;left:12px;top:12px;background:var(--ink);color:var(--sun);font:700 14px var(--body);padding:4px 12px;border-radius:99px}
+.card h3{font:700 21px/1.2 var(--display);margin:14px 0 2px}
+.meta{color:var(--mute);font-size:14px}
+.row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.price{font:700 19px var(--display)}
+.sw{display:flex;gap:7px}
+.sw button{width:24px;height:24px;border-radius:50%;border:2px solid var(--paper);box-shadow:0 0 0 1.5px var(--mute);cursor:pointer;padding:0}
+.sw button[aria-pressed="true"]{box-shadow:0 0 0 3px var(--cobalt)}
+.stars{font-size:14px;color:var(--mute);margin:2px 0}
+.stars span:first-child{color:var(--ink);letter-spacing:1px}
+.add{margin-top:12px;width:100%;border:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:99px;padding:11px;font:600 15px var(--body);cursor:pointer;transition:background .2s,border-color .2s}
+.add:hover{background:var(--ink);color:var(--paper)}
+
+/* Designs Collection */
+.designs{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:22px}
+.design{border-radius:26px;padding:30px;min-height:380px;display:flex;flex-direction:column;justify-content:space-between;text-decoration:none;position:relative;overflow:hidden;transition:transform .2s, box-shadow .55s}
+.design:hover{transform:translateY(-6px);box-shadow:0 32px 50px -28px rgba(17,19,21,.55)}
+.design b{font:800 clamp(30px,4vw,52px)/.95 var(--display);letter-spacing:-.03em;max-width:9ch}
+.design svg{width:70%;align-self:flex-end;margin-right:-14%;margin-bottom:-14%}
+.d1{background:var(--red);color:var(--white)}.d2{background:var(--sun);color:var(--ink)}.d3{background:var(--ink);color:var(--paper)}
+
+/* Manifesto & Process & Trust */
+.manifesto{background:var(--sun);color:var(--ink);padding:104px 0;text-align:center}
+.mq{font:800 clamp(34px,6vw,84px)/.98 var(--display);letter-spacing:-.04em;max-width:18ch;margin:0 auto 26px}
+.mc{max-width:56ch;margin:0 auto;font-size:18px}
+.proc{background:var(--ink);color:var(--paper)}
+.proc .lead{color:#A0A0A0}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:s}
+.step{counter-increment:s;border-top:3px solid var(--sun);padding-top:20px}
+.step::before{content:counter(s);display:block;font:800 clamp(64px,9vw,120px)/.9 var(--display);letter-spacing:-.05em;color:var(--sun);margin-bottom:12px}
+.step b{display:block;font:700 22px var(--display);margin-bottom:6px}
+.step span{color:#B8B8B8;font-size:15px}
+.rate{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:30px}
+.rate b{font:800 68px/1 var(--display);letter-spacing:-.04em}
+.rate span{font-size:22px;letter-spacing:2px}
+.rate small{color:var(--mute);font-size:15px}
+.revs{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.rev{margin:0;background:var(--paper2);border-radius:22px;padding:26px;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.rev:hover{transform:translateY(-5px)}
+.rev blockquote{margin:12px 0;font-size:17px}
+.rev figcaption{color:var(--mute);font-size:14px}
+.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.trust div{background:var(--paper2);border-radius:22px;padding:26px;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.trust div:hover{transform:translateY(-5px)}
+.trust b{font:700 21px/1.2 var(--display);display:block;margin-bottom:8px}
+.trust span{color:var(--mute);font-size:15px}
+
+/* Footer */
+footer{background:var(--cobalt);color:var(--white);padding:64px 0 36px;font-size:15px}
+.fbig{font:800 clamp(56px,13vw,190px)/.85 var(--display);letter-spacing:-.06em;margin:0 0 40px}
+.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:30px}
+footer h4{font:700 17px var(--display);margin:0 0 10px}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+footer a{opacity:.9;text-decoration:none}
+footer a:hover{text-decoration:underline}
+.news{margin-top:34px;max-width:460px}
+.news label{display:block;font:700 17px var(--display);margin-bottom:10px}
+.news div{display:flex;gap:8px}
+.news input{flex:1;min-width:0;padding:13px 18px;border-radius:99px;border:2px solid rgba(255,255,255,.5);background:transparent;color:inherit;font:400 16px var(--body)}
+.news input::placeholder{color:rgba(255,255,255,.7)}
+.news button{background:var(--sun);color:var(--ink);border:0;border-radius:99px;padding:0 22px;font:600 15px var(--body);cursor:pointer}
+.news small{display:block;margin-top:8px;opacity:.8;font-size:13px}
+.pay{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.pay span{border:1.5px solid rgba(255,255,255,.5);border-radius:8px;padding:4px 12px;font:600 13px var(--body)}
+.etbis{margin-top:30px;border:2px dashed rgba(255,255,255,.6);border-radius:14px;padding:14px;max-width:340px;text-align:center;color:rgba(255,255,255,.7)}
+
+/* Lightbox Modal */
+.lb{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:20px;background:rgba(17,19,21,.76);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);opacity:0;transition:opacity .35s}
+.lb[hidden]{display:none}
+.lb.on{opacity:1}
+.lbp{position:relative;width:min(1000px,100%);max-height:calc(100dvh - 40px);overflow:auto;background:var(--paper);border-radius:26px;display:grid;grid-template-columns:1.15fr 1fr;transform-origin:0 0;opacity:0;transition:transform .65s cubic-bezier(.2,.8,.2,1),opacity .3s}
+.lb.on .lbp{opacity:1}
+.lbs{background:var(--c,var(--paper2));position:relative;overflow:hidden;min-height:460px;display:flex;transition:background .35s}
+.lbt{display:flex;width:200%;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.lbv{width:50%;display:grid;place-items:center;padding:6%}
+.lbv svg{width:92%;height:auto}
+.lbv .tee{stroke-width:2.5}
+.lbtabs{position:absolute;left:18px;bottom:18px;display:flex;gap:8px}
+.lbtabs button{border:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:99px;font:600 14px var(--body);padding:6px 18px;cursor:pointer}
+.lbtabs button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.lbi{padding:48px 40px;display:flex;flex-direction:column;gap:14px;justify-content:center;opacity:0;transform:translateY(16px);transition:opacity .4s .3s,transform .5s .3s}
+.lb.on .lbi{opacity:1;transform:none}
+.lbi h3{font:800 clamp(32px,4vw,52px)/1 var(--display);letter-spacing:-.03em;margin:0}
+.lbi .price{font-size:30px}
+.lbi .sw button{width:34px;height:34px}
+.lbi .sizes{display:flex;gap:8px;margin-top:4px}
+.lbi .sizes button{border:1px solid var(--mute);background:transparent;padding:6px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+.lbi .sizes button[aria-pressed="true"]{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.lbi .btn{border:0;cursor:pointer;align-self:flex-start;margin-top:8px}
+.lbx{position:absolute;top:14px;right:14px;z-index:3;width:44px;height:44px;border-radius:50%;border:0;background:var(--ink);color:var(--paper);font-size:26px;line-height:1;cursor:pointer}
+
+/* Slider transition effects */
+.slide{display:none}
+.slide.on{display:grid;animation:sin .7s cubic-bezier(.2,.8,.2,1) both}
+@keyframes sin{from{opacity:0;transform:translateX(48px)}to{opacity:1;transform:none}}
+.slide.on .stage{animation:pop .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes pop{from{opacity:0;transform:rotate(-9deg) scale(.86)}to{opacity:1;transform:none}}
+.slide.on h1,.slide.on .h1,.slide.on p,.slide.on .btns,.slide.on .kicker{animation:up .7s cubic-bezier(.2,.8,.2,1) both}
+.slide.on p{animation-delay:.1s}
+.slide.on .btns{animation-delay:.2s}
+@keyframes up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.h1{font:800 clamp(44px,8.5vw,128px)/.86 var(--display);letter-spacing:-.05em;margin:0 0 28px}
+.kicker{font:600 15px var(--body);color:var(--sun);margin-bottom:14px}
+.hctl{position:absolute;left:24px;bottom:66px;z-index:3;display:flex;align-items:center;gap:12px}
+.ar{width:44px;height:44px;border-radius:50%;border:2px solid var(--white);background:transparent;color:var(--white);font-size:24px;line-height:1;cursor:pointer;transition:background .2s,color .2s}
+.ar:hover{background:var(--white);color:var(--cobalt)}
+.dots{display:flex;gap:8px}
+.dots button{width:12px;height:12px;border-radius:99px;border:0;padding:0;background:rgba(229,231,227,.35);cursor:pointer;position:relative;overflow:hidden;transition:width .35s}
+.dots button.on{width:56px}
+.dots i{position:absolute;inset:0;background:var(--sun);transform:scaleX(0);transform-origin:0 50%}
+.dots button.on i{animation:fill 6s linear forwards}
+@keyframes fill{to{transform:scaleX(1)}}
+.hero:hover .dots i,.hero:focus-within .dots i{animation-play-state:paused}
+
+@media (max-width:900px){
+ .heroin{grid-template-columns:1fr;padding-bottom:72px}
+ nav{display:none}.cols,.steps,.trust{grid-template-columns:repeat(2,1fr)}
+ .designs{grid-template-columns:1fr}.design{min-height:300px}.fgrid{grid-template-columns:1fr 1fr}
+ .hctl{bottom:52px}
+}
+@media (max-width:760px){.lbp{grid-template-columns:1fr}.lbs{min-height:360px}.lbi{padding:28px 24px 32px}}
+@media (max-width:520px){.cols,.steps,.trust,.fgrid{grid-template-columns:1fr}section{padding:60px 0}.badge{width:84px;height:84px;font-size:12px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.lbv img.ph{width:100%;height:auto;max-height:100%;object-fit:cover;border-radius:14px}
+.topbar{border-bottom:1px solid rgba(255,255,255,.14)}
+@media (max-width:900px){.revs{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.tk{animation:tick 90s linear infinite!important}}
+
+.step span.em{display:block;font-size:34px;line-height:1;margin:0 0 10px;color:inherit}
+.top{position:relative;z-index:3}
+.curtain{position:absolute;inset:0;background:var(--sun);transform:translateX(-101%);z-index:2;pointer-events:none}
+.curtain.go{animation:wipe .9s cubic-bezier(.7,0,.2,1)}
+@keyframes wipe{0%{transform:translateX(-101%)}45%,55%{transform:translateX(0)}100%{transform:translateX(101%)}}
+.slide.on .stage svg{animation:float 6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-10px) rotate(1.2deg)}}
+.phd{background:var(--cobalt);color:var(--white);position:sticky;top:0;z-index:20}
+.phd .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.phd .logo{font:800 22px/1 var(--display);text-decoration:none;letter-spacing:-.03em}
+.phd nav{display:flex;gap:24px;font-size:15px;font-weight:500}.phd nav a{text-decoration:none}
+.pg{max-width:1240px;margin:0 auto;padding:48px 24px 90px}
+.pg h1{font:800 clamp(38px,6vw,76px)/.95 var(--display);letter-spacing:-.045em;margin:0 0 16px}
+.pg h2{font-size:clamp(26px,3.4vw,38px);margin:36px 0 10px}
+.pg p,.pg li{max-width:68ch}
+.crumb{font-size:14px;color:var(--mute);margin-bottom:18px}
+.pcard{text-decoration:none;display:block}
+.pcard .g,.pd .gal,.crow .t{background:var(--c,var(--paper2));border-radius:22px;display:grid;place-items:center;position:relative;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.pcard .g{aspect-ratio:4/5}.pcard:hover .g{transform:translateY(-6px)}
+.pcard svg{width:70%}.pcard b{display:block;font:700 20px var(--display);margin-top:12px}
+.pd{display:grid;grid-template-columns:1.1fr 1fr;gap:44px;align-items:start}
+.pd .gal{aspect-ratio:1}.pd .gal svg{width:78%}.pd .gal img.ph{width:100%;height:100%;object-fit:cover;border-radius:22px}
+.opt{margin:18px 0 6px;font-weight:600}
+.pg .sizes{display:flex;gap:8px;flex-wrap:wrap}
+.pg .sizes button{border:1px solid var(--mute);background:transparent;padding:9px 16px;border-radius:8px;cursor:pointer;font:600 15px var(--body)}
+.pg .sizes button[aria-pressed="true"]{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.pg .sw button{width:34px;height:34px}
+.pg .btn{border:0;cursor:pointer;margin-top:18px}.pg .btn.sun{background:var(--ink);color:var(--paper)}
+.pg details{border-top:2px solid var(--ink);padding:16px 0}.pg details:last-of-type{border-bottom:2px solid var(--ink)}
+.pg summary{cursor:pointer;font:700 19px var(--display)}
+.crow{display:grid;grid-template-columns:90px 1fr auto;gap:16px;align-items:center;border-top:1px solid var(--paper2);padding:16px 0}
+.crow .t{width:90px;height:90px;border-radius:14px}.crow .t svg{width:80%}
+.qty button{width:34px;height:34px;border-radius:50%;border:2px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;font-size:18px}
+.qty span{display:inline-block;min-width:30px;text-align:center;font-weight:600}
+.rm{background:none;border:0;color:var(--mute);text-decoration:underline;cursor:pointer;font-size:14px}
+.sum{background:var(--paper2);border-radius:22px;padding:26px;max-width:460px;margin-top:24px}
+.sum div{display:flex;justify-content:space-between;padding:5px 0}
+.fm{display:grid;gap:12px;max-width:560px}
+.fm input,.fm select,.fm textarea{padding:13px 16px;border:2px solid var(--ink);border-radius:12px;font:400 16px var(--body);background:transparent;color:var(--ink)}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:15px}.chk input{margin-top:4px}
+.warn{background:var(--sun);color:var(--ink);border-radius:14px;padding:14px 18px;margin:0 0 24px;max-width:68ch;font-size:15px}
+.ck{position:fixed;left:16px;right:16px;bottom:16px;z-index:60;background:var(--ink);color:var(--paper);border-radius:16px;padding:14px 18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:14px;max-width:720px;margin:0 auto}
+.ck[hidden]{display:none}.ck span{flex:1;min-width:220px}
+.ck button{border:0;border-radius:99px;padding:9px 16px;font:600 14px var(--body);cursor:pointer;background:var(--sun);color:var(--ink)}
+.ck #ckno{background:transparent;color:var(--paper);border:1px solid var(--paper)}
+@media (max-width:900px){.pd{grid-template-columns:1fr}.phd nav{display:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="tee" viewBox="0 0 200 200"><path class="tee" d="M70 22 L38 36 L10 70 L36 90 L50 76 L50 180 L150 180 L150 76 L164 90 L190 70 L162 36 L130 22 C124 36 76 36 70 22 Z"/></symbol>
+<symbol id="emb" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46"/></symbol>
+</defs></svg>
+
+<!-- YAYIN ÖNCESİ: Ücretsiz kargo limiti gerçek değerle güncellenmeli (aşağıda script içinde: tk listesi). -->
+<div class="topbar" id="topbar"></div>
+<header class="phd" id="ph" hidden></header>
+<div id="home">
+<div class="hero">
+ <div class="wrap">
+  <div class="top">
+   <a class="logo" href="#/" id="logo">Marka Adı</a>
+   <nav aria-label="Ana menü"><a href="#/urunler">Ürünler</a><a href="#/koleksiyonlar">Koleksiyonlar</a><a href="#nasil">Süreç</a><a href="#/sss">Sık sorulanlar</a></nav>
+   <a class="cart" href="#/sepet">Sepet (0)</a>
+  </div>
+  <div class="heroin">
+   <div>
+    <h1>Sen iste, biz basalım.</h1>
+    <p>Her parça siparişin gelince kendi atölyemizde, renk renk basılır. Rafta bekleyen ürün yok.</p>
+    <div class="btns"><a class="btn sun" href="#urunler">Ürünlere bak</a><a class="btn line" href="#nasil">Nasıl çalışıyor?</a></div>
+   </div>
+   <div class="stage" role="img" aria-label="Üç renkli baskının tişörtün üzerinde hizaya oturduğu illüstrasyon">
+    <div class="bg"></div>
+    <svg viewBox="0 0 200 200">
+     <use href="#tee" style="fill:var(--white)"/>
+     <g transform="translate(100 104)">
+      <g class="l1"><circle r="30" fill="#0A0A0A"/></g>
+      <g class="l2"><circle r="30" fill="none" stroke="#8A8A8A" stroke-width="6"/></g>
+      <g class="l3"><text text-anchor="middle" y="6" font-family="Bricolage Grotesque,Arial,sans-serif" font-weight="800" font-size="19" fill="#FFFFFF">örnek</text></g>
+     </g>
+    </svg>
+    <div class="badge">Elle<br>basıldı</div>
+   </div>
+  </div>
+ </div>
+ <svg class="wave" viewBox="0 0 1200 56" preserveAspectRatio="none" aria-hidden="true"><path d="M0 56V28C150 0 300 0 450 22S750 56 900 34 1100 4 1200 24V56Z" fill="#8DB3D6"/></svg>
+</div>
+
+<div class="band" aria-hidden="true"><div id="band"></div></div>
+
+<section id="urunler"><div class="wrap">
+ <h2>En çok sipariş edilenler</h2>
+ <p class="lead">Rengi seç, kartta ürünün nasıl görüneceğini hemen gör. Fiyatlar KDV dahildir.</p>
+ <div class="cols" id="grid"></div>
+</div></section>
+
+<section id="tasarimlar" style="padding-top:0"><div class="wrap">
+ <h2>Tasarım koleksiyonları</h2>
+ <p class="lead">Her koleksiyonu tişört, hoodie ya da aksesuar olarak sipariş edebilirsin.</p>
+ <div class="designs">
+  <a class="design d1" href="#"><b>Koleksiyon bir</b><svg viewBox="0 0 100 100"><use href="#emb" fill="#FFFFFF"/></svg></a>
+  <a class="design d2" href="#"><b>Koleksiyon iki</b><svg viewBox="0 0 100 100"><use href="#emb" fill="#0A0A0A"/></svg></a>
+  <a class="design d3" href="#"><b>Koleksiyon üç</b><svg viewBox="0 0 100 100"><use href="#emb" fill="#FFFFFF"/></svg></a>
+ </div>
+</div></section>
+
+<section class="manifesto"><div class="wrap">
+ <p class="mq">“Tüketime karşı değil, bilinçli üretime inanıyoruz.”</p>
+ <p class="mc">Sadece sipariş verildiğinde üretim yaparak atığı sıfırlıyor, her kıyafeti tamamen sana özel olarak atölyemizde hazırlıyoruz.</p>
+</div></section>
+
+<section class="proc" id="nasil"><div class="wrap">
+ <h2>Sipariş, baskı, kargo</h2>
+ <p class="lead">Üretim siparişten sonra başladığı için tahmini teslim süresini ürün sayfasında baştan yazıyoruz.</p>
+ <div class="steps">
+  <div class="step"><span class="em" aria-hidden="true">🛒</span><b>Siparişi ver</b><span>Ürünü, rengi ve bedeni seç, ödemeni 3D Secure ile güvenle tamamla.</span></div>
+  <div class="step"><span class="em" aria-hidden="true">🖨️</span><b>Baskıya girer</b><span>Atölyemizde sipariş sırasına göre tek tek basılır, kontrolden geçer.</span></div>
+  <div class="step"><span class="em" aria-hidden="true">📦</span><b>Kargoya çıkar</b><span>Takip numaran e-postana gelir, yolculuğu adım adım izlersin.</span></div>
+  <div class="step"><span class="em" aria-hidden="true">🏠</span><b>Kapında</b><span>Haklarını mesafeli satış sözleşmesinde okuyabilirsin.</span></div>
+ </div>
+</div></section>
+
+<!-- YAYIN ÖNCESİ: Bu bölümdeki yorumlar, puanlar ve isimler örnek içeriktir. Gerçek müşteri yorumlarıyla değiştirilmeden yayınlanmamalı (sahte yorum, haksız ticari uygulama sayılır). Ürün kartlarındaki r/rc değerleri de örnektir. -->
+<section id="yorumlar"><div class="wrap">
+ <h2>Müşterilerimiz ne diyor</h2>
+ <p class="lead">Gerçek müşteri deneyimleri.</p>
+ <div class="rate"><b>4.8</b><span aria-hidden="true">★★★★★</span><small>128 değerlendirme</small></div>
+ <div class="revs">
+  <figure class="rev"><div class="stars"><span>★★★★★</span></div><blockquote>Baskı kalitesi beklediğimden iyi çıktı, kumaş kalın ve rahat.</blockquote><figcaption>Mehmet K. · Tişört</figcaption></figure>
+  <figure class="rev"><div class="stars"><span>★★★★★</span></div><blockquote>Sipariş verdikten beş gün sonra kapımdaydı. Yeniden alırım.</blockquote><figcaption>Ayşe T. · Hoodie</figcaption></figure>
+  <figure class="rev"><div class="stars"><span>★★★★☆</span></div><blockquote>Ebat tablosu tam oturdu, renk fotoğraftaki gibi geldi.</blockquote><figcaption>Can D. · Oversize tişört</figcaption></figure>
+ </div>
+</div></section>
+
+<section id="sss"><div class="wrap">
+ <h2>Aklındakiler</h2>
+ <div class="trust" style="margin-top:40px">
+  <div><b>Kendi atölyemizde basılır</b><span>Aracı yok, baskı kalitesini biz kontrol ederiz.</span></div>
+  <div><b>Süre baştan belli</b><span>Tahmini üretim ve kargo süresi sipariş vermeden önce görünür.</span></div>
+  <div><b>3D Secure ile ödeme</b><span>Kartlı ödeme ve taksit seçenekleri.</span></div>
+  <div><b>İade ve cayma</b><span>Koşullar iade sayfasında ve sözleşmede açıkça yazar.</span></div>
+ </div>
+</div></section>
+
+</div>
+<main id="page" hidden></main>
+<footer><div class="wrap">
+ <div class="fbig" id="fbig">Marka Adı</div>
+ <div class="fgrid">
+  <div><h4>Hakkımızda</h4><p>Sipariş üzerine basılan giyim ve aksesuar.</p></div>
+  <div><h4>Alışveriş</h4><ul><li><a href="#/urunler">Tüm ürünler</a></li><li><a href="#/koleksiyonlar">Koleksiyonlar</a></li><li><a href="#/sepet">Sepetim</a></li><li><a href="#/giris">Hesabım</a></li></ul></div>
+  <div><h4>Yardım</h4><ul><li><a href="#/sss">Sık sorulan sorular</a></li><li><a href="#/kargo-iade">Kargo ve iade</a></li><li><a href="#/iletisim">İletişim</a></li><li><a href="#/hakkimizda">Hakkımızda</a></li></ul></div>
+  <div><h4>Yasal</h4><ul><li><a href="#/yasal/mesafeli-satis">Mesafeli satış sözleşmesi</a></li><li><a href="#/yasal/on-bilgilendirme">Ön bilgilendirme formu</a></li><li><a href="#/yasal/iade-cayma">İade ve cayma hakkı</a></li><li><a href="#/yasal/kvkk">KVKK aydınlatma metni</a></li><li><a href="#/yasal/gizlilik-cerez">Gizlilik ve çerez politikası</a></li></ul></div>
+ </div>
+ <form class="news" id="news"><label for="em">Yeni tasarımlardan ilk sen haberdar ol</label><div><input id="em" type="email" placeholder="E-posta adresin" required><button type="submit">Abone ol</button></div><small id="nmsg">Abone olarak ticari elektronik ileti alınmasına onay vermiş olursun.</small></form>
+ <div class="pay" aria-label="Kabul edilen ödeme yöntemleri"><span>Visa</span><span>Mastercard</span><span>Troy</span><span>Havale/EFT</span><span>3D Secure</span></div>
+ <!-- YAYIN ÖNCESİ: ETBİS kaydından sonra alınan QR kodu bu alana eklenmeli. -->
+ <div class="etbis">ETBİS Vergi ve Kayıt Bilgileri</div>
+ <p style="margin-top:26px;opacity:.85">© <span id="yr"></span> <span id="nm">Marka Adı</span></p>
+</div></footer>
+<div class="ck" id="ck" hidden><span>Sitemiz, siteyi çalıştırmak için gerekli çerezleri kullanır. Ayrıntılar için <a href="#/yasal/gizlilik-cerez">çerez politikası</a>.</span><button type="button" id="ckok">Kabul et</button><button type="button" id="ckno">Yalnız gerekli</button></div>
+
+<!-- Lightbox Modal (Beden Seçimi Eklenmiş Haliyle) -->
+<div class="lb" id="lb" hidden aria-hidden="true">
+ <div class="lbp" id="lbp" role="dialog" aria-modal="true" aria-labelledby="lbn">
+  <button type="button" class="lbx" id="lbx" aria-label="Kapat">×</button>
+  <div class="lbs">
+   <div class="lbt" id="lbt">
+    <div class="lbv"><svg viewBox="0 0 200 200"><use href="#tee"/><circle class="pr" cx="128" cy="62" r="9"/></svg></div>
+    <div class="lbv"><svg viewBox="0 0 200 200"><use href="#tee"/><circle class="pr" cx="100" cy="100" r="30"/></svg></div>
+   </div>
+   <div class="lbtabs"><button type="button" data-v="0" aria-pressed="true">Ön</button><button type="button" data-v="1" aria-pressed="false">Arka</button></div>
+  </div>
+  <div class="lbi">
+   <h3 id="lbn"></h3>
+   <div class="meta" id="lbm"></div>
+   <div class="price" id="lbpr"></div>
+   <div class="meta" style="margin-top:4px;">Renk Seçimi:</div>
+   <div class="sw" id="lbsw" role="group" aria-label="Renk seçimi"></div>
+   <div class="meta" style="margin-top:4px;">Beden Seçimi:</div>
+   <div class="sizes" id="lbsizes" role="group" aria-label="Beden seçimi">
+    <button type="button" aria-pressed="false" data-size="S">S</button>
+    <button type="button" aria-pressed="true" data-size="M">M</button>
+    <button type="button" aria-pressed="false" data-size="L">L</button>
+    <button type="button" aria-pressed="false" data-size="XL">XL</button>
+   </div>
+   <button type="button" class="btn sun" id="lbAddBtn">Sepete ekle</button>
+  </div>
+ </div>
+</div>
+
+<script>
+const BRAND={name:"Marka Adı",lead:"Üretim ve kargo: 5–7 iş günü",bandText:["Siparişin gelince basılır","Ücretsiz kargo 500 ₺ ve üzeri","Taksit imkânı","Kendi atölyemizde"]};
+let cartN=0;
+const items=[
+ {n:"Tişört",p:"690 ₺",t:"Yeni",f:"",b:"",r:"4.8",rc:42,cols:["#FFFFFF","#8A8A8A","#0A0A0A"]},
+ {n:"Oversize tişört",p:"790 ₺",t:"",f:"",b:"",r:"4.9",rc:61,cols:["#9A9A9A","#E2E2E2","#2B2B2B"]},
+ {n:"Hoodie",p:"1.290 ₺",t:"",f:"",b:"",r:"4.7",rc:25,cols:["#2B2B2B","#CFCFCF","#FFFFFF"]},
+ {n:"Sweatshirt",p:"990 ₺",t:"",f:"",b:"",r:"4.8",rc:17,cols:["#0A0A0A","#F2F2F2","#8A8A8A"]}
+];
+const names=["Renk 1","Renk 2","Renk 3"];
+const pc=c=>{const h=c.replace("#",""),r=parseInt(h.slice(0,2),16),g=parseInt(h.slice(2,4),16),b=parseInt(h.slice(4,6),16);return (0.299*r+0.587*g+0.114*b)>150?"#0A0A0A":"#FFFFFF"};
+
+try{
+ document.title=BRAND.name+" | Sipariş üzerine basılan giyim";
+ ["logo","fbig","nm"].forEach(i=>document.getElementById(i).textContent=BRAND.name);
+ document.getElementById("yr").textContent=new Date().getFullYear();
+ const tk=["500 ₺ ve üzeri siparişlerde ücretsiz kargo","Siparişin gelince basılır","3D Secure ile güvenli ödeme","Yeni koleksiyonlar yolda"].map(t=>`<span>${t}</span><i>◆</i>`).join("");
+ document.getElementById("topbar").innerHTML=`<div class="tk">${tk+tk+tk+tk}</div>`;
+ const one=BRAND.bandText.map(t=>`<span>${t}</span>●`).join("");
+ document.getElementById("band").innerHTML=one+one+one+one;
+ 
+ const g=document.getElementById("grid");
+ g.innerHTML=items.map((i,k)=>`<div class="card" data-k="${k}"><div class="thumb" style="--c:${i.cols[1]}">${i.t?`<span class="tag">${i.t}</span>`:""}<div class="view front">${i.f?`<img class="ph" src="${i.f}" alt="${i.n}" loading="lazy">`:`<svg viewBox="0 0 200 200"><use href="#tee" style="fill:${i.cols[0]}"/><circle class="pr" cx="128" cy="62" r="9" style="fill:${pc(i.cols[0])}"/></svg>`}</div>${i.b?`<div class="view ph2"><img class="ph" src="${i.b}" alt="${i.n} arka" loading="lazy"></div>`:""}<button type="button" class="flip" aria-label="${i.n} görselini büyüt">İncele</button></div><h3>${i.n}</h3><div class="stars" aria-label="5 üzerinden ${i.r} puan, ${i.rc} değerlendirme"><span aria-hidden="true">★★★★★</span> <b>${i.r}</b> <span>(${i.rc})</span></div><div class="meta">${BRAND.lead}</div><div class="row"><div class="price">${i.p}</div><div class="sw">${i.cols.map((c,j)=>`<button type="button" aria-label="${names[j]}" aria-pressed="${j===0}" data-j="${j}" style="background:${c}"></button>`).join("")}</div></div><button type="button" class="add">Sepete ekle</button></div>`).join("");
+ 
+ g.addEventListener("click",e=>{
+  const ad=e.target.closest(".add");
+  if(ad){
+   openLB(ad.closest(".card"));
+    return;
+  }
+  if(e.target.closest(".flip")||e.target.closest(".thumb")){
+   openLB(e.target.closest(".card"));
+   return;
+  }
+  const b=e.target.closest("button[data-j]");if(!b)return;
+  const card=b.closest(".card"),it=items[card.dataset.k],c=it.cols[b.dataset.j];
+  card.querySelectorAll("use").forEach(u=>u.style.fill=c);card.querySelectorAll(".pr").forEach(p=>p.style.fill=pc(c));
+  card.querySelector(".thumb").style.setProperty("--c",it.cols[(+b.dataset.j+1)%3]);
+  card.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+ });
+}catch(e){console.error(e)}
+
+let cur=null,lastCard=null;
+const COLLS=[
+ {n:"Koleksiyon bir",d:"Kısa bir açıklama buraya gelir: koleksiyonun hikâyesi ve hangi ürünlerde basıldığı.",sh:"circle",bg:"#3A3A3A",c:"#0A0A0A",s:"#8A8A8A",t:"#FFFFFF",no:"01"},
+ {n:"Koleksiyon iki",d:"Kısa bir açıklama buraya gelir: koleksiyonun hikâyesi ve hangi ürünlerde basıldığı.",sh:"diamond",bg:"#FFFFFF",c:"#0A0A0A",s:"#8A8A8A",t:"#FFFFFF",no:"02"},
+ {n:"Koleksiyon üç",d:"Kısa bir açıklama buraya gelir: koleksiyonun hikâyesi ve hangi ürünlerde basıldığı.",sh:"tri",bg:"#8A8A8A",c:"#8A8A8A",s:"#0A0A0A",t:"#FFFFFF",no:"03"}
+];
+const SH={circle:'<circle r="30"/>',diamond:'<rect x="-24" y="-24" width="48" height="48" transform="rotate(45)"/>',tri:'<path d="M0-34L32 24H-32Z"/>'};
+
+(function(){
+ const hi=document.querySelector(".heroin");if(!hi)return;
+ const box=document.createElement("div");box.className="slides";
+ hi.parentNode.insertBefore(box,hi);box.appendChild(hi);hi.classList.add("slide","on");
+ COLLS.forEach(c=>{
+  const s=document.createElement("div");s.className="heroin slide";
+  s.innerHTML=`<div><div class="kicker">Koleksiyon ${c.no}</div><div class="h1">${c.n}</div><p>${c.d}</p><div class="btns"><a class="btn sun" href="#tasarimlar">Koleksiyona git</a><a class="btn line" href="#urunler">Ürünlere bak</a></div></div><div class="stage" role="img" aria-label="${c.n} baskısı olan tişört"><div class="bg" style="background:${c.bg}"></div><svg viewBox="0 0 200 200"><use href="#tee" style="fill:#E5E7E3"/><g transform="translate(100 104)"><g class="l1" fill="${c.c}">${SH[c.sh]}</g><g class="l2" fill="none" stroke="${c.s}" stroke-width="6">${SH[c.sh]}</g><g class="l3"><text text-anchor="middle" y="7" font-family="Bricolage Grotesque,Arial,sans-serif" font-weight="800" font-size="20" fill="${c.t}">${c.no}</text></g></g></svg><div class="badge">Elle<br>basıldı</div></div>`;
+  box.appendChild(s);
+ });
+ const sl=[...box.children];
+ const ctl=document.createElement("div");ctl.className="hctl";
+ ctl.innerHTML=`<button type="button" class="ar" data-d="-1" aria-label="Önceki">‹</button><div class="dots">${sl.map((_,k)=>`<button type="button" data-k="${k}" aria-label="Slayt ${k+1}"><i></i></button>`).join("")}</div><button type="button" class="ar" data-d="1" aria-label="Sonraki">›</button>`;
+ box.parentNode.appendChild(ctl);
+ const dots=[...ctl.querySelectorAll(".dots button")];
+ let n=0;
+ const swap=k=>{n=(k+sl.length)%sl.length;sl.forEach((s,i)=>s.classList.toggle("on",i===n));dots.forEach((d,i)=>d.classList.toggle("on",i===n))};
+ const cu=document.createElement("div");cu.className="curtain";document.querySelector(".hero").appendChild(cu);
+ let busy=false;
+ const go=k=>{if(busy||(k+sl.length)%sl.length===n)return;busy=true;cu.classList.remove("go");void cu.offsetWidth;cu.classList.add("go");setTimeout(()=>swap(k),420);setTimeout(()=>busy=false,900)};
+ ctl.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;go(b.dataset.k!==undefined?+b.dataset.k:n+(+b.dataset.d))});
+ ctl.addEventListener("animationend",()=>go(n+1));
+ swap(0);
+})();
+
+const $=id=>document.getElementById(id);
+function setLBColor(it,j){
+ const c=it.cols[j];
+ $("lb").querySelectorAll("use").forEach(u=>u.style.fill=c);
+ $("lb").querySelectorAll(".pr").forEach(p=>p.style.fill=pc(c));
+ $("lbp").querySelector(".lbs").style.setProperty("--c",it.cols[(j+1)%3]);
+ $("lbsw").querySelectorAll("button").forEach((b,k)=>b.setAttribute("aria-pressed",k===j));
+}
+function showV(v){$("lbt").style.transform=v?"translateX(-50%)":"none";document.querySelectorAll(".lbtabs button").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.v===v))}
+
+function openLB(card){
+ lastCard=card;const it=items[card.dataset.k];cur=it;
+ const j=[...card.querySelectorAll(".sw button")].findIndex(b=>b.getAttribute("aria-pressed")==="true");
+ $("lbn").textContent=it.n;$("lbm").textContent=BRAND.lead;$("lbpr").textContent=it.p;
+ $("lbsw").innerHTML=it.cols.map((c,k)=>`<button type="button" aria-label="${names[k]}" data-j="${k}" style="background:${c}"></button>`).join("");
+ const vs=document.querySelectorAll(".lbv");vs.forEach((v,k)=>{const u=k?it.b:it.f;v.innerHTML=u?`<img class="ph" src="${u}" alt="${it.n}">`:LBV[k]});
+ setLBColor(it,Math.max(j,0));showV(0);document.querySelectorAll("#lbsizes button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.size==="M"));
+ const lb=$("lb"),p=$("lbp");lb.hidden=false;lb.setAttribute("aria-hidden","false");
+ const t=card.querySelector(".thumb").getBoundingClientRect();
+ p.style.transition="none";p.style.transform="none";
+ const r=p.getBoundingClientRect();
+ p.style.transform=`translate(${t.left-r.left}px,${t.top-r.top}px) scale(${t.width/r.width})`;
+ p.getBoundingClientRect();
+ p.style.transition="";
+ requestAnimationFrame(()=>{lb.classList.add("on");p.style.transform="none"});
+ $("lbx").focus({preventScroll:true});document.body.style.overflow="hidden";
+}
+
+function closeLB(){
+ const lb=$("lb");if(lb.hidden)return;
+ const p=$("lbp"),t=lastCard.querySelector(".thumb").getBoundingClientRect(),r=p.getBoundingClientRect();
+ lb.classList.remove("on");
+ p.style.transform=`translate(${t.left-r.left}px,${t.top-r.top}px) scale(${t.width/r.width})`;
+ setTimeout(()=>{lb.hidden=true;lb.setAttribute("aria-hidden","true");document.body.style.overflow="";lastCard.querySelector(".flip").focus({preventScroll:true})},520);
+}
+
+const LBV=[...document.querySelectorAll(".lbv")].map(v=>v.innerHTML);
+$("lbx").onclick=closeLB;
+$("lb").addEventListener("click",e=>{if(e.target===$("lb"))closeLB()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeLB()});
+document.querySelector(".lbtabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b)showV(+b.dataset.v)});
+$("lbsw").addEventListener("click",e=>{const b=e.target.closest("button");if(b&&cur)setLBColor(cur,+b.dataset.j)});
+
+// Beden seçimi mantığı
+$("lbsizes").addEventListener("click",e=>{
+ const b=e.target.closest("button");
+ if(!b)return;
+ $("lbsizes").querySelectorAll("button").forEach(btn=>btn.setAttribute("aria-pressed","false"));
+ b.setAttribute("aria-pressed","true");
+});
+
+// Lightbox içerisindeki sepete ekle butonu işlevselliği
+$("lbAddBtn").addEventListener("click",()=>{
+ {const j=[...document.querySelectorAll("#lbsw button")].findIndex(b=>b.getAttribute("aria-pressed")==="true"),s=document.querySelector("#lbsizes button[aria-pressed=true]").dataset.size;addToCart(lastCard.dataset.k,Math.max(j,0),s)}
+ $("lbAddBtn").textContent="Eklendi ✓";
+ setTimeout(()=>{$("lbAddBtn").textContent="Sepete ekle"; closeLB();}, 1000);
+});
+
+$("news").addEventListener("submit",e=>{e.preventDefault();$("nmsg").textContent="Teşekkürler, abonelik talebin alındı.";e.target.reset()});
+
+// ===== Sepet, sayfalar ve yönlendirme =====
+const num=p=>parseInt(String(p).replace(/\./g,""),10),tl=n=>n.toLocaleString("tr-TR")+" ₺";
+const FREE=500,SHIP=59; // örnek değerler
+let cart=[],ps={j:0,s:"M",v:0};
+const cnt=()=>cart.reduce((a,x)=>a+x.q,0);
+const syncCart=()=>document.querySelectorAll(".cart").forEach(c=>c.textContent="Sepet ("+cnt()+")");
+function addToCart(k,j,s){k=+k;j=+j;const x=cart.find(y=>y.k===k&&y.j===j&&y.s===s);x?x.q++:cart.push({k,j,s,q:1});syncCart();if(location.hash.startsWith("#/sepet"))route(true)}
+const art=(i,c,b)=>`<svg viewBox="0 0 200 200"><use href="#tee" style="fill:${c}"/><circle cx="${b?100:128}" cy="${b?100:62}" r="${b?30:9}" style="fill:${pc(c)}"/></svg>`;
+const pcard=(i,k)=>`<a class="pcard" href="#/urun/${k}"><div class="g" style="--c:${i.cols[1]}">${i.f?`<img class="ph" src="${i.f}" alt="${i.n}" style="width:100%;height:100%;object-fit:cover;border-radius:22px">`:art(i,i.cols[0],0)}</div><b>${i.n}</b><span class="meta">${BRAND.lead}</span><div class="price">${i.p}</div></a>`;
+const LEGAL={
+"mesafeli-satis":["Mesafeli Satış Sözleşmesi",[["Madde 1 – Taraflar","Satıcı: [ticari unvan, adres, vergi dairesi/no, MERSİS no, e-posta, telefon]. Alıcı: sipariş sırasında bilgilerini girdiği kişi."],["Madde 2 – Konu","Alıcının internet sitesinden sipariş ettiği ürünün satışı ve teslimine ilişkin tarafların hak ve yükümlülükleri."],["Madde 3 – Ürün, fiyat ve ödeme","Ürünün temel nitelikleri, KDV dahil toplam fiyatı, kargo bedeli ve ödeme şekli sipariş özetinde yer alır."],["Madde 4 – Üretim ve teslimat","Ürünler sipariş sonrası üretildiğinden tahmini üretim ve kargo süresi sipariş öncesinde belirtilir. Teslim süresi yasal azami süreyi aşamaz."],["Madde 5 – Cayma hakkı","Cayma hakkının süresi, kullanım şekli ve istisnaları İade ve Cayma Hakkı sayfasında açıklanır."],["Madde 6 – Uyuşmazlık","Uyuşmazlıklarda Tüketici Hakem Heyetleri ve Tüketici Mahkemeleri yetkilidir."]]],
+"on-bilgilendirme":["Ön Bilgilendirme Formu",[["Satıcı bilgileri","[ticari unvan, adres, telefon, e-posta, MERSİS no]"],["Ürün bilgileri","Ürün adı, renk, beden, adet ve KDV dahil fiyat sipariş özetinde gösterilir."],["Ödeme ve teslimat","Ödeme yöntemi, kargo bedeli, tahmini üretim ve teslim süresi."],["Cayma hakkı","Cayma hakkının kullanımı, başvuru yöntemi ve iade kargo bilgileri."],["Başvuru mercileri","Tüketici Hakem Heyetleri ve Tüketici Mahkemeleri."]]],
+"iade-cayma":["İade ve Cayma Hakkı",[["Cayma hakkı","Tüketici, teslimden itibaren 14 gün içinde gerekçe göstermeksizin cayma hakkını kullanabilir. [Süre ve prosedürü hukuk danışmanıyla netleştirin.]"],["İstisnalar","Tüketicinin istekleri veya kişisel ihtiyaçları doğrultusunda hazırlanan ürünlerde cayma hakkı kullanılamayabilir. Hazır tasarımların sipariş üzerine basılması bu kapsama girmeyebilir; bu madde mutlaka hukuk danışmanıyla belirlenmelidir."],["İade süreci","İade talebi [e-posta/form] ile iletilir, ürün kullanılmamış ve ambalajıyla gönderilir. Bedel iadesi yasal süre içinde yapılır."],["Ayıplı ürün","Hatalı veya ayıplı ürünlerde seçimlik haklar saklıdır."]]],
+"kvkk":["KVKK Aydınlatma Metni",[["Veri sorumlusu","[ticari unvan, adres, iletişim]"],["İşlenen veriler","Ad soyad, iletişim, teslimat ve fatura bilgileri, sipariş ve işlem güvenliği verileri."],["İşleme amaçları","Siparişin alınması, üretilmesi, teslimi, faturalandırılması, müşteri iletişimi ve yasal yükümlülükler."],["Aktarım","Kargo, ödeme kuruluşu ve fatura entegratörü gibi hizmet sağlayıcılara gerekli ölçüde."],["Haklarınız","KVKK madde 11 kapsamındaki haklarınız için [başvuru adresi]."]]],
+"gizlilik-cerez":["Gizlilik ve Çerez Politikası",[["Gizlilik","Kişisel veriler 6698 sayılı KVKK'ya uygun işlenir ve korunur."],["Zorunlu çerezler","Sepet ve oturum gibi sitenin çalışması için gerekli çerezler."],["Analitik ve pazarlama çerezleri","Yalnızca açık rızanızla kullanılır. Tercihinizi çerez bandından değiştirebilirsiniz. [Kullanılan araçları listeleyin.]"]]]};
+const FAQ=[["Ürünler ne zaman gönderilir?","Ürünler sipariş sonrası atölyemizde basıldığı için tahmini üretim ve kargo süresi ürün sayfasında yazar."],["Beden tablosu nasıl kullanılır?","Beden tablosunu ürün sayfasında bulabilirsin. Arada kalırsan bir beden büyüğünü öneririz."],["İade edebilir miyim?","İade koşulları İade ve Cayma Hakkı sayfasında açıklanır."],["Ödeme güvenli mi?","Ödemeler 3D Secure ile ve ödeme kuruluşunun güvenli sayfasında alınır, kart bilgilerin bizde tutulmaz."],["Siparişimi nasıl takip ederim?","Kargoya verildiğinde takip numarası e-postana gelir."]];
+const sec=(h,b)=>`<h2>${h}</h2><p>${b}</p>`;
+const PAGES={
+urunler:()=>`<div class="pg"><h1>Tüm ürünler</h1><p class="lead">Sipariş üzerine basılan tüm parçalar.</p><div class="cols">${items.map(pcard).join("")}</div></div>`,
+koleksiyonlar:()=>`<div class="pg"><h1>Koleksiyonlar</h1><div class="designs">${COLLS.map((c,k)=>`<a class="design d${k+1}" href="#/koleksiyon/${k}"><b>${c.n}</b><span>${c.d}</span></a>`).join("")}</div></div>`,
+koleksiyon:a=>{const c=COLLS[a]||COLLS[0];return `<div class="pg"><div class="crumb"><a href="#/koleksiyonlar">Koleksiyonlar</a> / ${c.n}</div><h1>${c.n}</h1><p class="lead">${c.d}</p><div class="cols">${items.map(pcard).join("")}</div></div>`},
+urun:a=>{const i=items[a]||items[0],k=items.indexOf(i),c=i.cols[ps.j],u=ps.v?i.b:i.f;return `<div class="pg"><div class="crumb"><a href="#/urunler">Ürünler</a> / ${i.n}</div><div class="pd"><div class="gal" style="--c:${i.cols[(ps.j+1)%3]}">${u?`<img class="ph" src="${u}" alt="${i.n}">`:art(i,c,ps.v)}<div class="lbtabs"><button type="button" data-v="0" aria-pressed="${!ps.v}">Ön</button><button type="button" data-v="1" aria-pressed="${!!ps.v}">Arka</button></div></div><div><h1>${i.n}</h1><div class="stars"><span aria-hidden="true">★★★★★</span> <b>${i.r}</b> <span>(${i.rc})</span></div><div class="price" style="font-size:30px;margin:8px 0">${i.p}</div><p class="meta">KDV dahil. ${BRAND.lead}</p><div class="opt">Renk</div><div class="sw" role="group" aria-label="Renk seçimi">${i.cols.map((x,j)=>`<button type="button" data-c="${j}" aria-pressed="${j===ps.j}" aria-label="${names[j]}" style="background:${x}"></button>`).join("")}</div><div class="opt">Beden</div><div class="sizes" role="group" aria-label="Beden seçimi">${["S","M","L","XL"].map(s=>`<button type="button" data-s="${s}" aria-pressed="${s===ps.s}">${s}</button>`).join("")}</div><button type="button" class="btn sun addp" data-k="${k}">Sepete ekle</button><div style="margin-top:28px"><details open><summary>Ürün bilgisi</summary><p>Sipariş üzerine atölyemizde basılır. [Kumaş, gramaj ve kalıp bilgisi.]</p></details><details><summary>Bakım</summary><p>Ters çevirip 30 derecede yıka, ütüyü baskıya değdirme.</p></details><details><summary>Teslimat ve iade</summary><p>Tahmini süre ve koşullar için <a href="#/kargo-iade">kargo ve iade</a> sayfasına bak.</p></details></div></div></div></div>`},
+sepet:()=>{if(!cart.length)return `<div class="pg"><h1>Sepetim</h1><p>Sepetin boş.</p><a class="btn sun" href="#/urunler" style="background:var(--ink);color:var(--paper)">Alışverişe başla</a></div>`;const sub=cart.reduce((a,x)=>a+num(items[x.k].p)*x.q,0),sh=sub>=FREE?0:SHIP;return `<div class="pg"><h1>Sepetim</h1><p class="meta">${sub>=FREE?"Ücretsiz kargo kazandın.":tl(FREE-sub)+" daha ekle, kargo ücretsiz olsun."}</p>${cart.map((x,n)=>{const i=items[x.k];return `<div class="crow"><div class="t" style="--c:${i.cols[(x.j+1)%3]}">${art(i,i.cols[x.j],0)}</div><div><b>${i.n}</b><div class="meta">Beden ${x.s} · ${tl(num(i.p))}</div><button type="button" class="rm" data-rm="${n}">Kaldır</button></div><div class="qty"><button type="button" data-q="${n}:-1" aria-label="Azalt">−</button><span>${x.q}</span><button type="button" data-q="${n}:1" aria-label="Arttır">+</button></div></div>`}).join("")}<div class="sum"><div><span>Ara toplam</span><b>${tl(sub)}</b></div><div><span>Kargo</span><b>${sh?tl(sh):"Ücretsiz"}</b></div><div><span>Toplam (KDV dahil)</span><b>${tl(sub+sh)}</b></div><a class="btn sun" href="#/odeme" style="background:var(--ink);color:var(--paper)">Ödemeye geç</a></div></div>`},
+odeme:()=>{if(!cart.length)return PAGES.sepet();return `<div class="pg"><h1>Ödeme</h1><div class="warn">Bu bir prototiptir. Gerçek sitede kart bilgileri ödeme kuruluşunun (örn. iyzico) güvenli sayfasında 3D Secure ile alınır.</div><form class="fm" id="co"><input required placeholder="Ad soyad" autocomplete="name"><input required type="email" placeholder="E-posta" autocomplete="email"><input required type="tel" placeholder="Telefon" autocomplete="tel"><textarea required rows="3" placeholder="Teslimat adresi"></textarea><input required placeholder="İl / ilçe"><label class="chk"><input type="checkbox" required><span><a href="#/yasal/on-bilgilendirme">Ön bilgilendirme formunu</a> ve <a href="#/yasal/mesafeli-satis">mesafeli satış sözleşmesini</a> okudum, onaylıyorum.</span></label><button type="submit" class="btn sun">Siparişi onayla</button></form></div>`},
+"siparis-alindi":()=>`<div class="pg"><h1>Siparişin alındı</h1><p>Teşekkürler. Siparişin üretime alınınca ve kargoya verilince e-postayla haber vereceğiz. (Prototip)</p><a class="btn sun" href="#/" style="background:var(--ink);color:var(--paper)">Ana sayfa</a></div>`,
+sss:()=>`<div class="pg"><h1>Sık sorulan sorular</h1>${FAQ.map(f=>`<details><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join("")}</div>`,
+"kargo-iade":()=>`<div class="pg"><h1>Kargo ve iade</h1>${sec("Üretim ve kargo","Ürünler siparişten sonra basılır. Tahmini süre: "+BRAND.lead.replace("Üretim ve kargo: ","")+". Ücretsiz kargo limiti: "+tl(FREE)+" (örnek).")}${sec("Takip","Kargoya verilince takip numarası e-postana gelir.")}${sec("İade","Koşullar için <a href=\"#/yasal/iade-cayma\">İade ve cayma hakkı</a> sayfasına bak.")}</div>`,
+iletisim:()=>`<div class="pg"><h1>İletişim</h1><p>[e-posta] · [telefon] · [adres]</p><form class="fm" id="ct" style="margin-top:20px"><input required placeholder="Adın"><input required type="email" placeholder="E-posta"><textarea required rows="5" placeholder="Mesajın"></textarea><button type="submit" class="btn sun">Gönder</button></form></div>`,
+hakkimizda:()=>`<div class="pg"><h1>Hakkımızda</h1><p>Tüketime karşı değil, bilinçli üretime inanıyoruz.</p><p>Sadece sipariş verildiğinde üretim yaparak atığı azaltıyor, her parçayı atölyemizde hazırlıyoruz. [Marka hikâyeni buraya yaz.]</p></div>`,
+yasal:a=>{const d=LEGAL[a];if(!d)return PAGES.nf();return `<div class="pg"><h1>${d[0]}</h1><div class="warn">Taslak metindir. Yayınlamadan önce hukuk danışmanıyla netleştirin.</div>${d[1].map(s=>sec(s[0],s[1])).join("")}</div>`},
+giris:()=>`<div class="pg"><h1>Hesabım</h1><div class="warn">Üyelik ve giriş ikas tarafından yönetilecek. Bu form görünüm içindir.</div><form class="fm" id="lg"><input required type="email" placeholder="E-posta"><input required type="password" placeholder="Şifre"><button type="submit" class="btn sun">Giriş yap</button></form></div>`,
+nf:()=>`<div class="pg"><h1>Sayfa bulunamadı</h1><a class="btn sun" href="#/" style="background:var(--ink);color:var(--paper)">Ana sayfaya dön</a></div>`};
+const pageEl=document.getElementById("page"),homeEl=document.getElementById("home");
+document.getElementById("ph").innerHTML=`<div class="wrap bar"><a class="logo" href="#/">${BRAND.name}</a><nav aria-label="Ana menü"><a href="#/urunler">Ürünler</a><a href="#/koleksiyonlar">Koleksiyonlar</a><a href="#/sss">Sık sorulanlar</a><a href="#/iletisim">İletişim</a></nav><a class="cart" href="#/sepet">Sepet (0)</a></div>`;
+function route(keep){
+ const h=location.hash;
+ if(!h.startsWith("#/")||h==="#/"){pageEl.hidden=true;$("ph").hidden=true;homeEl.hidden=false;if(h.length>2){const e=document.getElementById(h.slice(1));if(e)e.scrollIntoView()}return}
+ homeEl.hidden=true;$("ph").hidden=false;pageEl.hidden=false;
+ const [r,a]=h.slice(2).split("/");
+ pageEl.innerHTML=(PAGES[r]||PAGES.nf)(a);
+ if(!keep)window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",()=>{ps={j:0,s:"M",v:0};route()});
+pageEl.addEventListener("click",e=>{
+ const t=e.target.closest("button");if(!t)return;
+ const a=location.hash.split("/")[2];
+ if(t.dataset.c!==undefined){ps.j=+t.dataset.c;route(true)}
+ else if(t.dataset.s){ps.s=t.dataset.s;route(true)}
+ else if(t.dataset.v!==undefined){ps.v=+t.dataset.v;route(true)}
+ else if(t.classList.contains("addp")){addToCart(t.dataset.k,ps.j,ps.s);t.textContent="Eklendi ✓";setTimeout(()=>{t.textContent="Sepete ekle"},1200)}
+ else if(t.dataset.rm!==undefined){cart.splice(+t.dataset.rm,1);syncCart();route(true)}
+ else if(t.dataset.q){const[n,d]=t.dataset.q.split(":");cart[+n].q=Math.max(1,cart[+n].q+ +d);syncCart();route(true)}
+});
+pageEl.addEventListener("submit",e=>{e.preventDefault();if(e.target.id==="co"){cart=[];syncCart();location.hash="#/siparis-alindi"}else{const b=e.target.querySelector("button");b.textContent="Teşekkürler (prototip)";e.target.reset()}});
+try{if(!localStorage.getItem("ck"))$("ck").hidden=false}catch(x){$("ck").hidden=false}
+["ckok","ckno"].forEach(id=>$(id).onclick=()=>{$("ck").hidden=true;try{localStorage.setItem("ck",id)}catch(x){}});
+route();
+</script>
+</body>
+</html>
