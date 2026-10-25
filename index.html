@@ -3,13 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#faf6ec">
+<meta name="color-scheme" content="light dark">
 <meta name="description" content="Kids & Teens sınıfları için hazır, uygulaması kolay sınıf içi etkinlik önerileri.">
 <title>Sınıf İçi Etkinlik Önerileri | Kids & Teens</title>
 <style>
 :root{
-  --bg:#f7f8f5;--surface:#fff;--surface-2:#f1f6f2;--text:#1f3329;--muted:#4f6358;
-  --line:#dfe8e0;--brand:#2f5d46;--brand-ink:#fff;--accent:#c98a2b;--ring:#8fb7a0;
-  --shadow:0 1px 2px rgba(31,51,41,.06),0 8px 28px rgba(31,51,41,.07);
+  --bg:#faf6ec;--surface:#fffdf7;--surface-2:#f3ecdd;--text:#2c2b25;--muted:#5d594b;
+  --line:#e8dfcc;--brand:#3d6a50;--brand-ink:#fffdf7;--accent:#b57a22;--ring:#a9c4a0;
+  --shadow:0 1px 2px rgba(90,70,30,.06),0 8px 28px rgba(90,70,30,.08);
   box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
@@ -28,7 +30,7 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.2;margin:0;le
 p{margin:0 0 12px;color:var(--muted)}
 :focus-visible{outline:3px solid var(--ring);outline-offset:2px;border-radius:8px}
 
-.hero{background:linear-gradient(135deg,var(--surface-2),var(--surface));border:1px solid var(--line);border-radius:28px;padding:44px 36px;box-shadow:var(--shadow)}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--surface-2),var(--surface));border:1px solid var(--line);border-radius:28px;padding:44px 36px;box-shadow:var(--shadow)}
 .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);font-weight:700}
 .hero h1{font-size:clamp(30px,6vw,50px);margin:14px 0 14px;max-width:16ch}
 .hero p{font-size:17px;max-width:52ch}
@@ -65,7 +67,26 @@ p{margin:0 0 12px;color:var(--muted)}
 .fine{font-size:13px;color:var(--muted)}
 footer{margin-top:36px;text-align:center}
 
-@media (max-width:550px){.hero{padding:28px 22px}.section{padding:22px}.slots{grid-template-columns:repeat(2,1fr)}}
+.hero::after{content:"🧸 🎨 🎧";position:absolute;right:24px;bottom:14px;font-size:40px;letter-spacing:6px}
+.activity[data-group="kids"] .tag::before{content:"🧸 "}
+.activity[data-group="teens"] .tag::before{content:"🎧 "}
+.materials::before{content:"✂️ "}
+.activity summary::before{content:"📝 "}
+.slot::before{content:"🕒 "}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+html{-webkit-text-size-adjust:100%}
+button{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+@media (max-width:640px){
+ main{padding:14px 14px 56px}
+ .hero{padding:26px 20px;border-radius:22px}
+ .hero h1{max-width:none}
+ .hero::after{position:static;display:block;margin-top:16px;font-size:30px}
+ .tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);margin:18px -14px 14px;padding:10px 14px;gap:6px;border-bottom:1px solid var(--line)}
+ .tab{flex:1 1 0;padding:11px 6px;font-size:14px;text-align:center}
+ .cards{grid-template-columns:1fr}
+ .section{padding:22px 18px;border-radius:20px}
+ .slots{grid-template-columns:repeat(2,1fr)}
+}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 @media print{.hero,.tabs,.section,footer{display:none!important}.activity details{display:block}.activity{break-inside:avoid;box-shadow:none}.cards{display:block}.activity[hidden]{display:block}}
 </style>
@@ -73,57 +94,57 @@ footer{margin-top:36px;text-align:center}
 <body>
 <main>
   <header class="hero">
-    <div class="eyebrow">Kids &amp; Teens · Sınıf İçi</div>
-    <h1>Derse hemen hazır etkinlikler</h1>
+    <div class="eyebrow">🎒 Kids &amp; Teens · Sınıf İçi</div>
+    <h1>Derse hemen hazır etkinlikler ✨</h1>
     <p>Az malzemeyle, 10–20 dakikada uygulanabilen, yaş grubuna göre ayrılmış etkinlik fikirleri. Kartı aç, adımları izle, derse başla.</p>
-    <div class="stats"><span class="stat">6 etkinlik</span><span class="stat">10–20 dk</span><span class="stat">Yazdırılabilir</span></div>
+    <div class="stats"><span class="stat">📚 6 etkinlik</span><span class="stat">⏱️ 10–20 dk</span><span class="stat">🖨️ Yazdırılabilir</span><span class="stat">📱 Mobil uyumlu</span></div>
   </header>
 
   <div class="tabs" role="tablist" aria-label="Yaş grubu">
-    <button class="tab" role="tab" aria-selected="true" data-filter="all">Tümü</button>
-    <button class="tab" role="tab" aria-selected="false" data-filter="kids">Kids</button>
-    <button class="tab" role="tab" aria-selected="false" data-filter="teens">Teens</button>
+    <button class="tab" role="tab" aria-selected="true" data-filter="all">🌈 Tümü</button>
+    <button class="tab" role="tab" aria-selected="false" data-filter="kids">🧸 Kids</button>
+    <button class="tab" role="tab" aria-selected="false" data-filter="teens">🎧 Teens</button>
   </div>
 
   <section class="cards" id="cards" aria-live="polite">
     <article class="activity" data-group="kids">
       <div class="tag">Kids · 10 dk</div>
-      <h3>Hareketli Kelime Avı</h3>
+      <h3>🔍 Hareketli Kelime Avı</h3>
       <p>Sınıfa gizlenmiş kelime kartlarını bulup yüksek sesle okuma oyunu.</p>
       <div class="materials"><strong>Malzeme:</strong> kelime kartları, yapışkan bant</div>
       <details><summary>Adımlar</summary><ol><li>Kartları sınıfa önceden yerleştir.</li><li>Öğrenciler ikili gruplara ayrılır.</li><li>Bulunan kart yüksek sesle okunur, cümle kurulur.</li><li>En çok doğru cümleyi kuran ekip kazanır.</li></ol></details>
     </article>
     <article class="activity" data-group="kids">
       <div class="tag">Kids · 15 dk</div>
-      <h3>Resimli Hikâye Zinciri</h3>
+      <h3>🎨 Resimli Hikâye Zinciri</h3>
       <p>Her öğrenci bir çizim ekler, ekip birlikte hikâyeyi anlatır.</p>
       <div class="materials"><strong>Malzeme:</strong> A4 kâğıt, renkli kalemler</div>
       <details><summary>Adımlar</summary><ol><li>Kâğıtları dörde katlat.</li><li>Her öğrenci bir bölümü çizer ve yandakine verir.</li><li>Kâğıt açılır, hikâye tekrar anlatılır.</li></ol></details>
     </article>
     <article class="activity" data-group="kids">
       <div class="tag">Kids · 10 dk</div>
-      <h3>Sessiz Sinema</h3>
+      <h3>🎭 Sessiz Sinema</h3>
       <p>Fiilleri ve meslekleri jest-mimikle anlatarak kelime pekiştirme.</p>
       <div class="materials"><strong>Malzeme:</strong> fiil/meslek kartları</div>
       <details><summary>Adımlar</summary><ol><li>Bir öğrenci kart çeker.</li><li>Konuşmadan anlatır.</li><li>Doğru bilen sıradaki kartı çeker.</li></ol></details>
     </article>
     <article class="activity" data-group="teens">
       <div class="tag">Teens · 20 dk</div>
-      <h3>Mini Münazara</h3>
+      <h3>🗣️ Mini Münazara</h3>
       <p>Günlük hayattan bir konuda iki ekip, yapılandırılmış fikir savunur.</p>
       <div class="materials"><strong>Malzeme:</strong> konu kartları, zamanlayıcı</div>
       <details><summary>Adımlar</summary><ol><li>Konu seçilir, ekipler "katılıyorum / katılmıyorum" olarak ayrılır.</li><li>Hazırlık için 5 dakika verilir.</li><li>Her ekip 1 dakika konuşur, ardından karşı soru sorulur.</li><li>Sınıf oy kullanır.</li></ol></details>
     </article>
     <article class="activity" data-group="teens">
       <div class="tag">Teens · 20 dk</div>
-      <h3>Podcast Stüdyosu</h3>
+      <h3>🎙️ Podcast Stüdyosu</h3>
       <p>Küçük gruplar 2 dakikalık sahte radyo programı kaydeder.</p>
       <div class="materials"><strong>Malzeme:</strong> telefon (ses kaydı), konu listesi</div>
       <details><summary>Adımlar</summary><ol><li>Gruplar konu seçer ve kısa bir taslak yazar.</li><li>Roller dağıtılır: sunucu, konuk, giriş sesi.</li><li>Kayıt alınır ve sınıfla dinlenir.</li></ol></details>
     </article>
     <article class="activity" data-group="teens">
       <div class="tag">Teens · 15 dk</div>
-      <h3>Gizemli Kelime Kartları</h3>
+      <h3>🕵️ Gizemli Kelime Kartları</h3>
       <p>Yasaklı kelimeler kullanmadan hedef kelimeyi tarif etme oyunu.</p>
       <div class="materials"><strong>Malzeme:</strong> hedef ve yasaklı kelime kartları</div>
       <details><summary>Adımlar</summary><ol><li>Ekipler sırayla bir kart çeker.</li><li>60 saniyede mümkün olduğunca çok kelime tarif edilir.</li><li>Yasaklı kelime söylenirse tur biter.</li></ol></details>
@@ -131,7 +152,7 @@ footer{margin-top:36px;text-align:center}
   </section>
 
   <section class="section" aria-labelledby="inv-h">
-    <h2 id="inv-h">Veli bilgilendirme daveti</h2>
+    <h2 id="inv-h">💌 Veli bilgilendirme daveti</h2>
     <p>Etkinlikleri veliyle paylaşmak için uygun saati seç, davet metnini kopyala.</p>
     <div class="slots" id="slots" role="group" aria-label="Saat seçimi">
       <button class="slot" aria-pressed="false">10:00</button>
@@ -141,11 +162,11 @@ footer{margin-top:36px;text-align:center}
       <button class="slot" aria-pressed="false">17:00</button>
       <button class="slot" aria-pressed="false">18:30</button>
     </div>
-    <button class="btn" id="make" disabled>Davet metnini oluştur</button>
+    <button class="btn" id="make" disabled>✨ Davet metnini oluştur</button>
     <div id="result" role="status"></div>
   </section>
 
-  <footer><p class="fine">Etkinlikleri yazdırabilirsin: yazdırma çıktısında yalnızca etkinlik kartları görünür.</p></footer>
+  <footer><p class="fine">🖨️ Etkinlikleri yazdırabilirsin: yazdırma çıktısında yalnızca etkinlik kartları görünür.</p></footer>
 </main>
 
 <script>
@@ -168,9 +189,9 @@ footer{margin-top:36px;text-align:center}
     var txt='Merhaba, sınıf içi etkinlikleri paylaşmak üzere '+chosen+' saatinde kısa bir bilgilendirme yapacağız. Katılımınızı bekleriz.';
     res.textContent='';
     var p=document.createElement('p');p.style.color='var(--text)';p.textContent=txt;
-    var b=document.createElement('button');b.className='btn';b.textContent='Kopyala';
+    var b=document.createElement('button');b.className='btn';b.textContent='📋 Kopyala';
     b.addEventListener('click',function(){
-      try{navigator.clipboard.writeText(txt).then(function(){b.textContent='Kopyalandı ✓'},function(){b.textContent='Kopyalanamadı'})}
+      try{navigator.clipboard.writeText(txt).then(function(){b.textContent='✅ Kopyalandı'},function(){b.textContent='Kopyalanamadı'})}
       catch(e){b.textContent='Kopyalanamadı'}
     });
     res.appendChild(p);res.appendChild(b);res.classList.add('show');
